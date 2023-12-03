@@ -1,46 +1,115 @@
-# Getting Started with Create React App
+# OLC React Boilerplate
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This document is a boilerplate for OLC Software Engineering 2023 that provides an overview of the React boilerplate project, which includes TypeScript, Tailwind CSS, ESLint, Husky, React Router, and React Query. This boilerplate is ideal for starting a scalable and maintainable web application with best practices in place.
 
-## Available Scripts
+## Project Structure
 
-In the project directory, you can run:
+```
+my-app/
+├── src/
+│   ├── components/
+│   │   ├── Navbar.tsx
+│   ├── pages/
+│   │   ├── Home.tsx
+│   │   ├── About.tsx
+│   ├── types/
+│   ├── hooks/
+│   ├── utils/
+│   ├── App.tsx
+│   ├── index.tsx
+│   └── react-app-env.d.ts
+├── package.json
+```
 
-### `npm start`
+### Key Directories and Files
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- `src/components/`: Contains reusable UI components like `Navbar`.
+- `src/pages/`: Holds the main page components like `Home` and `About`.
+- `src/types/`: Place for TypeScript type definitions and interfaces.
+- `src/hooks/`: Custom React hooks for shared logic across components.
+- `src/utils/`: Utility functions that can be used throughout the app.
+- `src/App.tsx`: The main app component, setting up the routing using React Router.
+- `src/index.tsx`: The entry point for the app, setting up React Query and rendering the `App` component.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Custom Hooks
 
-### `npm test`
+Custom hooks in React allow you to extract component logic into reusable functions. For example, `useExampleHook.tsx` in the `hooks` directory could be a custom hook for fetching data.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Example: `useExampleHook.tsx`
 
-### `npm run build`
+```tsx
+import { useState, useEffect } from 'react';
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+const useExampleHook = () => {
+  const [data, setData] = useState(null);
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  useEffect(() => {
+    // Fetch data and set it
+    setData("Fetched Data");
+  }, []);
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  return data;
+};
 
-### `npm run eject`
+export default useExampleHook;
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Using `useExampleHook` in a Component
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```tsx
+// In a component file
+import React from 'react';
+import useExampleHook from './hooks/useExampleHook';
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+const ExampleComponent: React.FC = () => {
+  const data = useExampleHook();
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+  return <div>{data}</div>;
+};
+```
 
-## Learn More
+## Setup and Installation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. **Install Dependencies:**
+   Run `npm install` to install all the required dependencies.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. **Start the Development Server:**
+   Use `npm start` to start the local development server.
+
+## Features
+
+- **TypeScript**: Provides type safety across the app.
+- **Tailwind CSS**: For utility-first styling.
+- **ESLint**: To enforce code quality standards.
+- **Husky**: Implements pre-commit hooks for code quality checks.
+- **React Router**: Manages navigation within the application.
+- **React Query**: Handles data fetching, caching and state management.
+
+## Usage
+
+### Running the Application
+
+- Start the development server:
+  ```bash
+  npm start
+  ```
+
+### Navigation
+
+- Use the `Link` component from `react-router-dom` for navigation.
+- Example usage in `Navbar.tsx` and `Home.tsx`.
+
+### Adding New Pages
+
+1. Create a new file in `src/pages/`.
+2. Add the route in `src/App.tsx`.
+
+### Customizing Styles
+
+- Tailwind CSS can be customized in `tailwind.config.js`.
+- Use Tailwind utility classes in component files.
+
+## Contributing
+
+Contributions to this project are welcome. Please ensure to follow the existing coding standards and commit message conventions.
+
