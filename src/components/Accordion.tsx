@@ -9,14 +9,14 @@ import classNames from 'classnames'
 // import { sidebarData } from '../utils/data'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from 'react-query'
-import { deleteFolder, postFolder, postNote } from '../utils/getNote'
+import { deleteFolder, deleteNote, postFolder, postNote } from '../utils/getNote'
 
 interface Props {
   arrayChildren: any,
   passData?: any,
   folderName?: string,
   passData2?: any,
-  folderId?: string
+  folderId?: any
 }
 
 const Accordion: React.FC<Props> = ({ arrayChildren, passData, folderName, passData2, folderId }) => {
@@ -41,7 +41,8 @@ const Accordion: React.FC<Props> = ({ arrayChildren, passData, folderName, passD
 
   const handeNewFolder = async () => {
     if (folderId) {
-      await postNote(folderId)
+      const res = await postNote(folderId)
+      console.log('res : ', res)
       window.location.reload()
     } else {
       mutate(newFolder)
@@ -50,8 +51,13 @@ const Accordion: React.FC<Props> = ({ arrayChildren, passData, folderName, passD
   }
 
   const handleDeleteFolder = async () => {
-    await deleteFolder(arrayChildren.data?.data.data[isActive].id)
-    window.location.reload()
+    if (folderName) {
+      const res = await deleteNote(folderId, arrayChildren.data?.data.data[isActive].id)
+      console.log('res notedel: ', res)
+    } else {
+      await deleteFolder(arrayChildren.data?.data.data[isActive].id)
+      window.location.reload()
+    }
   }
 
   useEffect(() => {
@@ -187,7 +193,7 @@ const Accordion: React.FC<Props> = ({ arrayChildren, passData, folderName, passD
                          'max-h-0 opacity-0 overflow-hidden': !isAddFolder,
                          'max-h-screen opacity-100 overflow-auto': isAddFolder
                        })} id="hs-leading-icon-wrapper">
-                        <input onChange={handleChange} type="text" id="hs-leading-icon" name="hs-leading-icon" className="py-3 px-4 ps-11 block w-full border-inherit border-2 shadow-sm rounded-lg text-sm focus:z-10  disabled:opacity-50 disabled:pointer-events-none" placeholder="New Folder"/>
+                        <input onChange={handleChange} type="text" id="hs-leading-icon" name="hs-leading-icon" className="py-3 px-4 ps-11 block w-full border-inherit border-2 shadow-sm rounded-lg text-sm focus:z-10  disabled:opacity-50 disabled:pointer-events-none" placeholder={folderName ? 'New Note' : 'New Folder'}/>
                         <div className="absolute inset-y-0 start-0 flex items-center cursor-pointer z-20 ps-4">
                         <svg onClick={handeNewFolder} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="flex-shrink-0 items-center hover:h-6 hover:w-6 h-5 w-5 active:text-gray-500 hover:text-gray-900 text-gray-400 dark:text-gray-600">
                           <path fillRule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" />

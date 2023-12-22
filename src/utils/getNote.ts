@@ -41,7 +41,7 @@ export const editNote = async (folderId: string, noteId: string, title: string, 
 }
 export const postNote = async (folderId: string) => {
   try {
-    const result = await instanceHeader.post(`/firebase/${folderId}`, {
+    const result = await instanceHeader.post('/firebase', {
       title: 'New Note',
       description: 'New Description',
       note: 'New Note',
@@ -67,6 +67,15 @@ export const postFolder = async (folderName: string) => {
 export const deleteFolder = async (folderId: string) => {
   try {
     const result = await instanceHeader.delete(`/firebase/folder/${folderId}`)
+    return result
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const deleteNote = async (folderId: string, noteId: string) => {
+  try {
+    const result = await instanceHeader.delete(`/firebase/${folderId}/${noteId}`)
     return result
   } catch (error) {
     console.log(error)

@@ -28,7 +28,7 @@ const Login: React.FC = () => {
   const handleLogin = async (): Promise<void> => {
     try {
       const res: any = await fetchLogin()
-      Cookies.set('token', res.token, { expires: 1 })
+      Cookies.set('token', res.token)
       window.location.href = '/home'
       navigate('/home')
     } catch (error) {

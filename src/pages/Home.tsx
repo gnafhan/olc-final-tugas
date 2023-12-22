@@ -8,6 +8,7 @@ import EditableNote from '../components/EditableNote'
 import { placeholdertext } from '../utils/data'
 import { useQuery } from 'react-query'
 import { editNote, getNote, getNotes } from '../utils/getNote'
+import Cookies from 'js-cookie'
 
 const Home: React.FC = () => {
   const [title, setTitle] = useState('Title')
@@ -38,6 +39,11 @@ const Home: React.FC = () => {
     const res = await editNote(folderId, noteId, title, description, note)
     console.log('res : ', res)
     window.location.reload()
+  }
+
+  const handleLogOut = () => {
+    Cookies.remove('token')
+    window.location.href = '/'
   }
 
   const handlePassData2 = (title: string, description: string, note: string, id: string) => {
@@ -103,6 +109,11 @@ const Home: React.FC = () => {
               />
             </svg>
             Save
+          </button>
+        </div>
+      <div className="top-10 right-10 fixed">
+          <button onClick={handleLogOut} className="btn btn-outline btn-md bg-white shadow-md">
+            Logout
           </button>
         </div>
     </div>
