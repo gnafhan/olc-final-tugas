@@ -10,9 +10,9 @@ import { getFolder, postFolder } from '../utils/getNote'
 const Hero: React.FC = () => {
   const [newFolder, setNewFolder] = React.useState('')
   const folder = useQuery('folder', getFolder)
-  if (!folder.isLoading && folder.data?.data.data.length !== 0) {
-    window.location.href = '/home'
-  }
+  // if (!folder.isLoading && folder.data?.data.data.length !== 0) {
+  //   window.location.href = '/home'
+  // }
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewFolder(e.target.value)
   }
