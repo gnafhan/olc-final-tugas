@@ -3,13 +3,18 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}", // Path to all your JS/TSX files
     // Add other paths here if you have HTML or other types of files where you use Tailwind classes
   ],
+  darkMode: true,
   theme: {
     extend: {
-      // Extend Tailwind theme here
-      // For example, you can add custom colors, fonts, etc.
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+      },
     },
   },
   plugins: [
-    // Add any Tailwind plugins you'd like to use here
+    require("daisyui")
   ],
+  daisyui: {
+    themes: ["light", "dark", "emerald"],
+  },
 }
